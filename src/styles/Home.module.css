@@ -1,0 +1,15 @@
+.stepper {
+  width: 100%;
+  margin: auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 20px;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  column-gap: 12px;
+}
