@@ -22,11 +22,14 @@ const StepperProvider: React.FC<StepperProviderProps> = ({
   children,
   stepsLength,
 }) => {
-  const [currentStep, setCurrentStep] = useState<number>(5);
+  const [currentStep, setCurrentStep] = useState<number>(0);
   const [allSteps, setAllSteps] = useState(stepsLength); // no lo estamos usando por ahora.
-  const [formData, setFormData] = useState<Record<string, any>>({});
+  const [formData, setFormData] = useState<Record<string, any>>({
+    hobby: 'orders'
+  });
 
   const updateFormData = (data: Record<string, any>) => {
+    console.log(data);
     setFormData((prevData) => ({ ...prevData, ...data }));
   };
 
@@ -37,7 +40,7 @@ const StepperProvider: React.FC<StepperProviderProps> = ({
 
   const prevStep = (arg: number) => {
     console.log('args ', arg);
-    setCurrentStep(Math.max(arg - 1, 1));
+    setCurrentStep(arg);
   }
 
   const contextValue: StepperContextProps = {

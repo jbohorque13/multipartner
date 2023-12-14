@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { useStepper } from './StepperContext';
 
 const Name = () => {
@@ -41,9 +41,9 @@ const Phone = () => {
 };
 
 enum Entities {
-  comafi = '1',
-  galicia = '2',
-  sol = '3',
+  comafi = 'banco-comafi',
+  galicia = 'banco-galicia',
+  sol = 'banco-sol',
 }
 
 const Hobbies = () => {
@@ -89,7 +89,7 @@ const Hobbies = () => {
   );
 };
 
-const Flow = () => {
+/* const Flow = () => {
   const { formData } = useStepper();
 
   // llamada a la api que trae los pasos de la entidad
@@ -115,50 +115,92 @@ const Flow = () => {
   const FlowComponent = flows[formData.hobby];
 
   return <FlowComponent />;
-};
+}; */
 
 export const NewOrderSteps = {
-  1: {
-    component: <Name />,
-    step: 1,
-    nextStep: 2,
-    prevStep: null,
-  },
-  2: {
-    component: <LastName />,
-    step: 2,
-    nextStep: 3,
-    prevStep: 1,
-  },
-  3: {
-    component: <Phone />,
-    step: 3,
-    nextStep: 4,
-    prevStep: 2,
-  },
-  4: {
-    component: <Hobbies />,
-    step: 4,
-    nextStep: 5,
-    prevStep: 3,
-  },
-  5: {
-    key: 'banco-comafi',
+  'orders': {
     components: {
-      5: { 
-        component: <div>prueba</div>,
-        step: 5,
+      0: {
+        component: <Name />,
+        step: 1,
+        nextStep: 1,
+        prevStep: 0,
+      },
+      1: {
+        component: <LastName />,
+        step: 2,
+        nextStep: 2,
+        prevStep: 0,
+      },
+      2: {
+        component: <Phone />,
+        step: 3,
+        nextStep: 3,
+        prevStep: 1,
+      },
+      3: {
+        component: <Hobbies />,
+        step: 4,
+        nextStep: 4,
+        prevStep: 2,
+      },
+    }
+  },
+  'banco-comafi': {
+    components: {
+      4: { 
+        component: <div>Banco Comafi Step 1</div>,
+        step: 1,
+        nextStep: 5,
+        prevStep: 3,
+      },
+      5: {
+        component: <div> Banco Comafi Step 2</div>,
+        step: 2,
+        nextStep: 5,
+        prevStep: 4,
+      }
+    },
+    
+  },
+  'banco-galicia': {
+    components: {
+      4: { 
+        component: <div>Banco Galicia step 1</div>,
+        step: 1,
+        nextStep: 5,
+        prevStep: 3,
+      },
+      5: {
+        component: <div> Banco Galicia step 2 </div>,
+        step: 2,
+        nextStep: 5,
+        prevStep: 4,
+      }
+    },
+  },
+  'banco-sol': {
+    components: {
+      4: { 
+        component: <div>Banco Sol step 1</div>,
+        step: 1,
+        nextStep: 5,
+        prevStep: 3,
+      },
+      5: {
+        component: <div> Banco Sol step 2 </div>,
+        step: 2,
         nextStep: 6,
         prevStep: 4,
       },
       6: {
-        component: <div> prueba 2</div>,
-        step: 6,
-        nextStep: 7,
+        component: <div> Banco Sol step 3 </div>,
+        step: 3,
+        nextStep: 6,
         prevStep: 5,
       }
     },
-  }
+  },
 };
 
 // simulamos llamada

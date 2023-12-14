@@ -1,32 +1,34 @@
+import React from 'react';
 import { useStepper } from './StepperContext';
 import styles from '@/styles/Home.module.css';
 
 const StepWrapper = ({ stepsComponents, title }) => {
   const { currentStep, nextStep, prevStep, formData, stepsLength } = useStepper();
 
-  let components = null;
-  let CurrentComponent = null;
+  const render = React.useMemo(() => {
+    return stepsComponents[formData.hobby].components[currentStep].component
+  }, [currentStep]);
 
-  if (/* stepsComponents[currentStep] && stepsComponents[currentStep].key === 'banco-comafi' &&  */currentStep > 4) {
-    components = stepsComponents[5].components[currentStep];
-  } else {
-    CurrentComponent = stepsComponents[currentStep];
-  }
+  const handleNext = React.useCallback(() => {
+    nextStep(stepsComponents[formData.hobby].components[currentStep].nextStep);
+  }, [currentStep]);
+
+  const handlePrev = React.useCallback(() => {
+    prevStep(stepsComponents[formData.hobby].components[currentStep].prevStep);
+  }, [currentStep]);
 
   return (
     <div>
       <h3>{title}</h3>
       <p>
-        Paso {CurrentComponent && CurrentComponent.step || components && components.length } de {stepsLength}
+        {/* Paso {CurrentComponent && CurrentComponent.step || components && components.length } de {stepsLength} */}
       </p>
-
-      {CurrentComponent && CurrentComponent.component}
-      {components && components.component}
-
+      {render}
+      
 
       <div className={styles.footer}>
-        <button onClick={() => prevStep(components.prevStep)}>Volver</button>
-        <button onClick={() => nextStep(components.nextStep)}>Continuar</button>
+        <button onClick={handlePrev}>Volver</button>
+        <button onClick={handleNext}>Continuar</button>
       </div>
     </div> 
   );
